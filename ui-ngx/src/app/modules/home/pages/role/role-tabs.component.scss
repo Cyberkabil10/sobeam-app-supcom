@@ -1,0 +1,72 @@
+/**
+ * Copyright © 2016-2025 The Thingsboard Authors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+:host ::ng-deep {
+  .containers-wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    width: 100%;
+  }
+
+  mat-icon {
+    margin-left: 10px !important;
+  }
+
+  .mat-internal-form-field,
+  .mdc-label {
+    width: 100%;
+  }
+
+  .list {
+    // border: solid 1px #ccc;
+    min-height: 100%;
+    border-radius: 12px;
+    height: 700px;
+    margin: 0 10px;
+    background: #01c0c8;
+    padding: 10px;
+
+    @media (max-width:880px) {
+      width: 65px;
+    }
+  }
+
+  .mat-padding {
+    // border: 1px solid #ccc;
+  }
+
+  .isActive {
+    background: #fff;
+    border: 1px solid #fff;
+    border-radius: 10px;
+  }
+
+  .icon-active {
+    border: solid 1px #01c0c8;
+    border-radius: 25%;
+    background: #84dcdf;
+    color: #fff;
+  }
+
+  .mat-edit {
+    width: 900px;
+    margin-right: 8px;
+    padding: 0 20px;
+    height: 660px;
+    overflow: scroll;
+  }
+}

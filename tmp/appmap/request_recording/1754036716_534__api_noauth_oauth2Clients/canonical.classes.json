@@ -1,0 +1,12 @@
+[
+  "org/springframework/http/converter/xml/MappingJackson2XmlHttpMessageConverter",
+  "org/thingsboard/server/common/data/StringUtils",
+  "org/thingsboard/server/common/data/oauth2/PlatformType",
+  "org/thingsboard/server/controller/OAuth2Controller",
+  "org/thingsboard/server/dao/DaoUtil",
+  "org/thingsboard/server/dao/aspect/SqlDaoCallsAspect",
+  "org/thingsboard/server/dao/oauth2/OAuth2ClientServiceImpl",
+  "org/thingsboard/server/dao/sql/oauth2/JpaOAuth2ClientDao",
+  "org/thingsboard/server/dao/sql/oauth2/OAuth2ClientRepository",
+  "org/thingsboard/server/utils/MiscUtils"
+]

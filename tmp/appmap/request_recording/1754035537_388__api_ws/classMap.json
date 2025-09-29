@@ -1,0 +1,126 @@
+[
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "name": "matches",
+                                    "type": "function",
+                                    "static": false,
+                                    "location": "application/src/main/java/org/thingsboard/server/service/security/auth/jwt/SkipPathRequestMatcher.java:40"
+                                  }
+                                ],
+                                "name": "SkipPathRequestMatcher",
+                                "type": "class"
+                              }
+                            ],
+                            "name": "jwt",
+                            "type": "package"
+                          }
+                        ],
+                        "name": "auth",
+                        "type": "package"
+                      }
+                    ],
+                    "name": "security",
+                    "type": "package"
+                  }
+                ],
+                "name": "service",
+                "type": "package"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "name": "doFilterInternal",
+                                "type": "function",
+                                "static": false,
+                                "location": "common/transport/http/src/main/java/org/thingsboard/server/transport/http/config/PayloadSizeFilter.java:56"
+                              }
+                            ],
+                            "name": "PayloadSizeFilter",
+                            "type": "class"
+                          }
+                        ],
+                        "name": "config",
+                        "type": "package"
+                      }
+                    ],
+                    "name": "http",
+                    "type": "package"
+                  }
+                ],
+                "name": "transport",
+                "type": "package"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "name": "resolve",
+                        "type": "function",
+                        "static": false,
+                        "location": "application/src/main/java/org/thingsboard/server/config/CustomOAuth2AuthorizationRequestResolver.java:86"
+                      }
+                    ],
+                    "name": "CustomOAuth2AuthorizationRequestResolver",
+                    "type": "class"
+                  },
+                  {
+                    "children": [
+                      {
+                        "name": "doFilterInternal",
+                        "type": "function",
+                        "static": false,
+                        "location": "application/src/main/java/org/thingsboard/server/config/RateLimitProcessingFilter.java:49"
+                      }
+                    ],
+                    "name": "RateLimitProcessingFilter",
+                    "type": "class"
+                  }
+                ],
+                "name": "config",
+                "type": "package"
+              }
+            ],
+            "name": "server",
+            "type": "package"
+          }
+        ],
+        "name": "thingsboard",
+        "type": "package"
+      }
+    ],
+    "name": "org",
+    "type": "package"
+  },
+  {
+    "type": "http",
+    "name": "HTTP server requests",
+    "children": [
+      {
+        "type": "route",
+        "name": "GET /api/ws"
+      }
+    ]
+  }
+]

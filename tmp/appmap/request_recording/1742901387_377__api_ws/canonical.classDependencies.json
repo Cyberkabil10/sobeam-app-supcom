@@ -1,0 +1,6 @@
+[
+  {
+    "caller": "org/thingsboard",
+    "callee": "GET /api/ws"
+  }
+]

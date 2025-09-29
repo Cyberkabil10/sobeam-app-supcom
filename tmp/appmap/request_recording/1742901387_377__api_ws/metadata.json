@@ -1,0 +1,23 @@
+{
+  "name": "GET /api/ws (101) - 12:16:27.377",
+  "app": "SoBeam-3.8",
+  "language": {
+    "name": "java",
+    "version": "17.0.14+7-Ubuntu-122.04.1",
+    "engine": "OpenJDK 64-Bit Server VM"
+  },
+  "client": {
+    "name": "appmap-java",
+    "url": "https://github.com/appland/appmap-java"
+  },
+  "recorder": {
+    "name": "request_recording",
+    "type": "requests"
+  },
+  "recording": {},
+  "git": {
+    "repository": "git@github.com:ZAKRAOUI-MARWEN/Sobeam.git",
+    "branch": "development",
+    "commit": "8d5469484a9995b8dfe8fb2bc08f1c9f74c428ad"
+  }
+}

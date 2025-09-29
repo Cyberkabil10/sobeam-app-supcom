@@ -1,0 +1,170 @@
+/**
+ * Copyright © 2016-2025 The Thingsboard Authors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ @import "../../../../../scss/constants";
+
+ :host {
+   display: flex;
+   flex-direction: column;
+    width: clamp(200px, 60vw, 650px);
+    height: clamp(100px, 100vh, 800px);
+   
+   mat-toolbar {
+     position: sticky;
+     top: 0;
+     z-index: 2;
+     flex: 0 0 auto;
+   }
+ 
+   mat-progress-bar {
+     position: sticky;
+     top: 64px; /* Toolbar height */
+     z-index: 2;
+   }
+ 
+   form.tb-dialog-container {
+     min-width: 400px;
+     width: 700px;
+     min-height: 400px;
+     height: 740px;
+     overflow-y: auto;
+     flex: 1 1 auto;
+     padding: 16px;
+   }
+ 
+   .tb-form-panel {
+     margin-bottom: 16px;
+     border-radius: 4px;
+ 
+     legend {
+       h6 {
+         margin: 0;
+         padding: 4px 8px;
+         color: rgba(0, 0, 0, 0.87);
+       }
+     }
+   }
+ 
+   .stroked {
+     border: 1px solid rgba(0, 0, 0, 0.12);
+     padding: 16px;
+   }
+ 
+   .tb-form-row {
+     display: flex;
+     flex-direction: row;
+     align-items: center;
+     margin-bottom: 16px;
+ 
+     .fixed-title-width {
+       flex: 0 0 auto;
+       margin-right: 16px;
+     }
+ 
+     .flex {
+       flex: 1 1 auto;
+     }
+   }
+ 
+   .tb-suffix-absolute {
+     .mat-mdc-form-field-subscript-wrapper {
+       position: static;
+     }
+   }
+ 
+   mat-form-field.mat-block {
+     width: 100%;
+     margin-bottom: 16px;
+   }
+ 
+ 
+   tb-timezone-select.flex {
+     display: flex;
+     margin-bottom: 16px;
+     width: 100%;
+   }
+ 
+   mat-slide-toggle.mat-block {
+     display: block;
+     margin: 16px 0;
+   }
+ 
+   .key-filter-list {
+     max-height: 300px;
+     overflow-y: auto;
+ 
+     .no-data-found {
+       height: 48px;
+     }
+   }
+ 
+   .filters-operation {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+   }
+   
+   [mat-dialog-actions] {
+     position: sticky;
+     bottom: 0;
+     background: white;
+     padding: 16px;
+     margin: 0;
+     z-index: 2;
+     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+   }
+ }
+ 
+ :host ::ng-deep {
+   .mat-mdc-radio-group {
+     display: flex;
+     flex-direction: row;
+     margin-bottom: 22px;
+     gap: 12px;
+ 
+     .mat-mdc-radio-button {
+       flex: 1 1 100%;
+       padding: 4px;
+       border: 1px solid rgba(0, 0, 0, 0.12);
+       border-radius: 6px;
+     }
+   }
+ 
+   .mat-stepper-horizontal {
+     .mat-horizontal-stepper-wrapper {
+       background-color: white;
+     }
+ 
+     .mat-horizontal-content-container {
+       min-height: 400px;
+       max-height: calc(100vh - 200px);
+       overflow: auto;
+       padding: 16px 24px 24px 24px;
+     }
+   }
+ 
+   mat-tab-group {
+     .mat-mdc-tab-body-wrapper {
+       min-height: 400px;
+       margin-top: 10px;
+     }
+   }
+ 
+   @media #{$mat-xs} {
+     .mat-mdc-radio-group {
+       flex-direction: column;
+     }
+   }
+ }

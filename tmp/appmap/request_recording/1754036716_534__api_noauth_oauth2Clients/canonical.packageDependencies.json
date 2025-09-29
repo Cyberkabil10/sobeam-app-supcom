@@ -1,0 +1,50 @@
+[
+  {
+    "caller": "HTTP server requests",
+    "callee": "org/springframework/http/converter/xml"
+  },
+  {
+    "caller": "HTTP server requests",
+    "callee": "org/thingsboard/server/controller"
+  },
+  {
+    "caller": "org/thingsboard/server/controller",
+    "callee": "org/thingsboard/server/common/data"
+  },
+  {
+    "caller": "org/thingsboard/server/controller",
+    "callee": "org/thingsboard/server/common/data/oauth2"
+  },
+  {
+    "caller": "org/thingsboard/server/controller",
+    "callee": "org/thingsboard/server/dao/oauth2"
+  },
+  {
+    "caller": "org/thingsboard/server/controller",
+    "callee": "org/thingsboard/server/utils"
+  },
+  {
+    "caller": "org/thingsboard/server/dao/aspect",
+    "callee": "org/thingsboard/server/dao/sql/oauth2"
+  },
+  {
+    "caller": "org/thingsboard/server/dao/oauth2",
+    "callee": "org/thingsboard/server/dao/aspect"
+  },
+  {
+    "caller": "org/thingsboard/server/dao/sql/oauth2",
+    "callee": ""
+  },
+  {
+    "caller": "org/thingsboard/server/dao/sql/oauth2",
+    "callee": "Database"
+  },
+  {
+    "caller": "org/thingsboard/server/dao/sql/oauth2",
+    "callee": "org/thingsboard/server/dao"
+  },
+  {
+    "caller": "org/thingsboard/server/transport/http/config",
+    "callee": "HTTP server requests"
+  }
+]

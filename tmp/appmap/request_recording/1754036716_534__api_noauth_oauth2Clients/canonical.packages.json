@@ -1,0 +1,11 @@
+[
+  "org/springframework/http/converter/xml",
+  "org/thingsboard/server/common/data",
+  "org/thingsboard/server/common/data/oauth2",
+  "org/thingsboard/server/controller",
+  "org/thingsboard/server/dao",
+  "org/thingsboard/server/dao/aspect",
+  "org/thingsboard/server/dao/oauth2",
+  "org/thingsboard/server/dao/sql/oauth2",
+  "org/thingsboard/server/utils"
+]

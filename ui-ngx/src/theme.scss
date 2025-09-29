@@ -1,0 +1,632 @@
+/**
+ * Copyright © 2016-2025 The Thingsboard Authors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+@use '@angular/material' as mat;
+@use 'theme-overwrites' as overwrites;
+@import '../theme/datepicker-theme';
+@import './scss/constants';
+
+@include mat.all-component-typographies();
+@include mat.core();
+
+$tb-mat-indigo: (
+  50 : #e1f7f8,
+  100 : #b3ecef,
+  200 : #80e0e4,
+  300 : #4dd3d9,
+  400 : #27c9d0,
+  500 : $tb-primary-color,
+  600 : $tb-secondary-color,
+  700 : #01b2bb,
+  800 : #01aab4,
+  900 : #009ca7,
+  A100 : #d1fbff,
+  A200 : #9ef8ff,
+  A400 : #6bf4ff,
+  A700 : #52f2ff,
+  contrast: (50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #000000,
+    500 : #000000,
+    600 : #000000,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
+);
+
+$md-mcgpalette0: (
+  50 : #fff2ef,
+  100 : #fee0d7,
+  200 : #fdcbbc,
+  300 : #fcb6a1,
+  400 : #fca68c,
+  500 : #fb9678,
+  600 : #fa8e70,
+  700 : #fa8365,
+  800 : #f9795b,
+  900 : #f86848,
+  A100 : #ffffff,
+  A200 : #ffffff,
+  A400 : #ffece8,
+  A700 : #ffd7cf,
+  contrast: (50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #000000,
+    500 : #000000,
+    600 : #000000,
+    700 : #000000,
+    800 : #000000,
+    900 : #000000,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
+);
+
+$tb-primary: mat.m2-define-palette($tb-mat-indigo);
+$tb-accent: mat.m2-define-palette($md-mcgpalette0);
+$background: (background: map_get($tb-mat-indigo, 600));
+
+$tb-theme-background: map_merge(mat.$m2-light-theme-background-palette, $background);
+
+$tb-mat-theme: mat.m2-define-light-theme((color: (primary: $tb-primary,  accent: $tb-accent ),
+        typography: mat.m2-define-typography-config($button: mat.m2-define-typography-level(14px, 36px, 500, $letter-spacing: 0.03125em, $font-family: 'Manrope'),
+        $body-1: mat.m2-define-typography-level(16px, 24px, 400, $letter-spacing: 0.5px, $font-family: 'Manrope'),
+        $body-2: mat.m2-define-typography-level(14px, 20px, 400, $letter-spacing: 0.25px, $font-family: 'Manrope'),
+        $font-family: 'Manrope',
+      ),
+      density: 0));
+
+$color: map_get($tb-mat-theme, color);
+$color: map_merge($color, (background: $tb-theme-background));
+$tb-mat-theme: map_merge($tb-mat-theme, (color: $color));
+$tb-theme: map_merge($tb-mat-theme, $color);
+
+$primary: mat.m2-get-color-from-palette($tb-primary);
+$accent: mat.m2-get-color-from-palette($tb-accent);
+
+$tb-dark-mat-indigo: (
+  50: #ffffff,
+  100: #c5cae9,
+  200: #9fa8da,
+  300: #7986cb,
+  400: #5c6bc0,
+  500: $tb-dark-primary-color,
+  600: $tb-secondary-color,
+  700: #303f9f,
+  800: $tb-secondary-color,
+  900: #1a2537,
+  A100: $tb-hue3-color,
+  A200: #536dfe,
+  A400: #3d5afe,
+  A700: #304ffe,
+  contrast: (50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    400: rgba(black, 0.87),
+    500: map_get($tb-mat-indigo, 900),
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: rgba(black, 0.87),
+    A200: rgba(black, 0.87),
+    A400: rgba(black, 0.87),
+    A700: rgba(black, 0.87),
+  )
+);
+
+$tb-dark-primary: mat.m2-define-palette($tb-dark-mat-indigo);
+
+$tb-dark-theme-background: (
+  status-bar: rgb(255, 255, 255),
+  app-bar: map_get($tb-dark-mat-indigo, 900),
+  background: map_get($tb-dark-mat-indigo, 900),
+  hover: rgba(white, 0.04),
+  card: map_get($tb-dark-mat-indigo, 900),
+  dialog: map_get($tb-dark-mat-indigo, 800),
+  disabled-button: rgba(255, 255, 255, 0.12),
+  raised-button: rgb(255, 255, 255),
+  focused-button: rgba(255, 255, 255, 0.12),
+  selected-button: rgb(255, 255, 255),
+  selected-disabled-button: rgba(255, 255, 255, 0.5),
+  disabled-button-toggle: rgb(255, 255, 255),
+  unselected-chip: map_get($tb-dark-mat-indigo, 700),
+  disabled-list-option: rgb(255, 255, 255),
+  tooltip: map_get(mat.$m2-grey-palette, 700),
+);
+
+$tb-dark-theme: mat.m2-define-dark-theme((color: (primary: $tb-dark-primary,
+        accent: $tb-accent ),
+        typography: mat.m2-define-typography-config($button: mat.m2-define-typography-level(14px, 36px, 500, $letter-spacing: 0.03125em, $font-family: 'Manrope'),
+        $body-1: mat.m2-define-typography-level(16px, 24px, 400, $letter-spacing: 0.5px, $font-family: 'Manrope'),
+        $body-2: mat.m2-define-typography-level(14px, 20px, 400, $letter-spacing: 0.25px, $font-family: 'Manrope'),
+        $font-family: 'Manrope',
+      ),
+      density: 0));
+
+$color: map_get($tb-dark-theme, color);
+$color: map_merge($color, (background: $tb-dark-theme-background));
+$tb-dark-theme: map_merge($tb-dark-theme, (color: $color));
+$tb-dark-theme: map_merge($tb-dark-theme, $color);
+
+@mixin mat-fab-toolbar-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+
+  mat-fab-toolbar {
+    .mat-fab-toolbar-background {
+      background: map-get($theme, 100);
+      color: mat.m2-get-color-from-palette($foreground, text);
+    }
+    &.mat-primary {
+      .mat-fab-toolbar-background {
+        background: mat.m2-get-color-from-palette($primary);
+        color: mat.m2-get-color-from-palette($primary, default-contrast);
+      }
+    }
+    &.mat-accent {
+      .mat-fab-toolbar-background {
+        background: mat.m2-get-color-from-palette($accent);
+        color: mat.m2-get-color-from-palette($accent, default-contrast);
+      }
+    }
+    &.mat-warn {
+      .mat-fab-toolbar-background {
+        background: mat.m2-get-color-from-palette($warn);
+        color: mat.m2-get-color-from-palette($warn, default-contrast);
+      }
+    }
+  }
+}
+
+@mixin _mat-toolbar-inverse-color($palette) {
+  background: mat.m2-get-color-from-palette($palette, default-contrast);
+  color: rgba(black, 0.87);
+}
+
+@mixin mat-fab-toolbar-inverse-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $background: map-get($theme, foreground);
+  $foreground: map-get($theme, background);
+
+  mat-fab-toolbar {
+    .mat-fab-toolbar-background {
+      background: map-get($theme, 100);
+      color: mat.m2-get-color-from-palette($foreground, text);
+    }
+    &.mat-primary {
+      .mat-fab-toolbar-background {
+        @include _mat-toolbar-inverse-color($primary);
+      }
+    }
+    mat-toolbar {
+      &.mat-primary {
+        @include _mat-toolbar-inverse-color($primary);
+        button.mat-mdc-icon-button {
+          .mat-icon {
+            color: mat.m2-get-color-from-palette($primary);
+          }
+        }
+      }
+    }
+    .mat-mdc-fab {
+      &.mat-primary {
+        background: mat.m2-get-color-from-palette($primary, default-contrast);
+        color: mat.m2-get-color-from-palette($primary);
+      }
+    }
+  }
+
+}
+
+@mixin tb-components-theme($theme) {
+  $primary: map-get($theme, primary);
+  $warn: map-get($theme, warn);
+  $is-tb-theme: $theme == $tb-theme;
+  $colorLocalDark : #273042;
+  $colorLocalDark1 : #1a2537;
+  $colorLocalDark2 : #2a3447;
+
+  $colorLocalLight : #f4f7fb;
+  $colorLocalLight1 : #ffffff;
+  $colorLocalLight2 : white;
+
+
+  mat-toolbar {
+    background: if($is-tb-theme, $colorLocalLight2, mat.m2-get-color-from-palette($primary, '100'));
+    color: if($is-tb-theme, #29343D, #ffffffd9);
+
+    &.mat-hue-3 {
+      background: if($is-tb-theme, $colorLocalLight2, mat.m2-get-color-from-palette($primary, '100'));
+      color: if($is-tb-theme, #29343D, #ffffffd9);
+    }
+
+    &.mat-toolbar {
+      background: if($is-tb-theme, $colorLocalLight2, mat.m2-get-color-from-palette($primary, '100'));
+      color: if($is-tb-theme, #29343D, #ffffffd9);
+    }
+  }
+
+  @include mat-fab-toolbar-theme($tb-theme);
+
+  div.tb-dashboard-page.mobile-app {
+    @include mat-fab-toolbar-inverse-theme($tb-theme);
+  }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+    margin: 15px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    margin: 5px;
+
+
+    &:hover {
+      background: rgba(165, 165, 165, 0.65);
+    }
+  }
+
+  .tb-absolute-fill,
+  .cdk-virtual-scroll-orientation-vertical {
+    background: transparent;
+  }
+
+  #gridster-child,
+  .tb-entity-table , mat-drawer-container{
+    background: if($is-tb-theme, $colorLocalLight, #1f2a3d) !important;
+
+  }
+
+
+  .tb-main-content {
+    background: if($is-tb-theme, $colorLocalLight, #1f2a3d) !important;
+    border-radius: 22px;
+    margin: 5px;
+
+  }
+/*
+  .tb-widget-container>.tb-widget {
+    box-shadow: 0 2px 4px -1px #afb6c933 !important;
+  }
+*/
+  .tb-entity-table-content,
+   tb-widget-container:not(:has(tb-scada-symbol-widget)) {
+  background: if($is-tb-theme, $colorLocalLight1 !important, $colorLocalDark1 !important);
+    border-radius: 14px !important;
+    border: none !important;
+  }
+
+  .mat-mdc-cell {
+    .mat-icon {
+      color: if($is-tb-theme, #29343d !important, #e3bd86 !important);
+    }
+  }
+
+  .mat-mdc-unelevated-button.mat-primary {
+    --mdc-filled-button-container-color: $tb-primary-color !important;
+  }
+
+  .mat-mdc-outlined-button:not(:disabled),
+  .ng-tns-c33-6,
+  .tb-usage-item,
+  label,
+  span:not(gridster-item *),
+  div:not(gridster-item *),
+  .tb-usage-item-counts,
+
+  tb-icon:not(gridster-item *),
+  a:not(gridster-item *),
+  p:not(gridster-item *),
+  h2:not(gridster-item *),
+  .tb-title:not(gridster-item *),
+ legend,
+  .mat-sort-header-content:not(gridster-item *),
+  .tb-home-widget-title {
+    @if not $is-tb-theme {
+      color:  $colorLocalLight  !important;
+    }
+  }
+
+  .mat-mdc-unelevated-button,
+  .mat-step-icon {
+    background-color: $tb-primary-color !important;
+
+  }
+
+  .mat-mdc-dialog-container ,#gridster-background {
+    --mdc-dialog-container-color: if($is-tb-theme, $colorLocalLight1 !important, $colorLocalDark1 !important);
+    background-color: if($is-tb-theme, $colorLocalLight1 !important, $colorLocalDark1 !important);
+  }
+
+  .mat-mdc-button {
+    &.mat-primary {
+      --mdc-text-button-label-text-color: if($is-tb-theme, $colorLocalDark1 !important, $colorLocalLight1 !important);
+
+    }
+  }
+
+  .mat-mdc-raised-button:not(:disabled)  {
+    background: if($is-tb-theme, $tb-primary-color !important, $tb-primary-color !important);
+  }
+
+  tb-timewindow-panel,
+  .ng-tns-c185-108,
+  .tb-popover-inner,
+  .tb-filter-panel,
+  tb-widget-types-panel ,.tb-images-content{
+    background-color: if($is-tb-theme, $colorLocalLight1 !important, $colorLocalDark1 !important);
+
+  }
+
+  .mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label {
+    color: if($is-tb-theme, $tb-primary-color !important, $colorLocalLight !important);
+
+  }
+
+  .mdc-text-field--filled {
+    .mdc-line-ripple::after {
+      border-color: if($is-tb-theme, $tb-primary-color !important, $colorLocalLight !important);
+    }
+  }
+
+  .mat-mdc-radio-button {
+    &.mat-primary {
+      --mdc-radio-selected-icon-color: $tb-primary-color !important;
+      --mdc-radio-selected-pressed-icon-color: $tb-primary-color !important;
+      --mdc-radio-selected-hover-icon-color: $tb-primary-color !important;
+    }
+  }
+
+  .ng-tns-c80-4,
+  tb-details-panel,
+  .mat-expansion-panel {
+    background-color: if($is-tb-theme, $colorLocalLight !important, $colorLocalDark2 !important);
+  }
+  .details-toolbar  {
+    background-color: $tb-primary-color !important;
+    border-radius: 11px 11px 0px 0px !important;
+  }
+
+  .card {
+    border-radius: 12px;
+  }
+
+  tb-entities-table {
+    .mat-drawer-container {
+      background-color: transparent !important;
+    }
+  }
+
+  .mdc-button--unelevated {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .leaflet-popup-content-wrapper {
+    background-color: if($is-tb-theme, $colorLocalLight !important, $colorLocalDark1 !important);
+  }
+
+   input[type="text"],
+  .mat-mdc-select-arrow {
+    &:after {
+      color: if($is-tb-theme, #1f2a3d, $colorLocalLight) !important;
+    }
+
+  }
+
+  .ace_gutter-layer,
+  .ace_scroller,
+  .ace_scrollbar-v {
+    background-color: if($is-tb-theme, $colorLocalLight !important, $colorLocalDark2 !important);
+
+  }
+
+  button .mat-button-toggle-label-content {
+    color: #1f2a3d;
+  }
+
+  mat-button-toggle-group {
+    background-color: if($is-tb-theme, $colorLocalLight !important, $colorLocalDark2 !important);
+
+  }
+
+   tb-widget {
+  div ,span , p , td ,mat-cell , tb-icon{
+    @if not $is-tb-theme {
+      color:  #e3dfda !important;
+    }
+
+  }
+}
+
+  tb-asset-profile .mat-padding {
+    background-color: if($is-tb-theme, $colorLocalLight !important, $colorLocalDark2 !important);
+
+  }
+
+  //
+  mat-form-field.search-users {
+    background-color: if($is-tb-theme, $colorLocalLight !important, $colorLocalDark1 !important);
+
+  }
+
+  .group-title {
+    color: if($is-tb-theme, #29343D, #e3dfda !important);
+  }
+
+  .fields-group {
+    @if not $is-tb-theme {
+
+
+      border: 1px groove $colorLocalLight !important;
+    }
+  }
+
+  .mat-button-toggle-group.mat-button-toggle-group-appearance-standard.tb-toggle-header {
+    background: transparent, !important;
+  }
+
+  .tb-css , .table-container{
+    @if not $is-tb-theme {
+   //   background: $colorLocalDark1 !important;
+    }
+  }
+
+  .mat-button-toggle-group.mat-button-toggle-group-appearance-standard.tb-toggle-header.tb-fill.tb-invert .mat-button-toggle.mat-button-toggle-appearance-standard.mat-button-toggle-checked {
+    background: $tb-primary-color !important;
+    border-radius: 12px;
+  }
+
+  .mat-button-toggle-button {
+    background: none !important;
+  }
+
+  .ace-tm .ace_gutter-active-line {
+    @if not $is-tb-theme {
+      background-color: $colorLocalDark !important;
+    }
+  }
+
+
+
+
+  .mat-elevation-z4{
+    box-shadow:none !important;
+  }
+
+  // rule chaine
+  .tb-rulechain .tb-rulechain-library .tb-rulechain-library-panel-group .mat-expansion-panel .mat-expansion-panel-header {
+    background-color: #16cdc7 !important;
+    margin: 2px;
+    border-radius: 12px;
+    color:$colorLocalLight2 !important;
+  }
+
+  .tb-rulechain .tb-rulechain-library .tb-rulechain-library-panel-group .fc-canvas {
+    @if not $is-tb-theme {
+      background: #1f2a3d;
+      border-radius: 12px;
+    }
+  }
+
+  .tb-node-type,
+  .tb-node-title {
+    @if not $is-tb-theme {
+      color: $colorLocalDark !important;
+    }
+  }
+
+  .tb-rule-node .mat-icon  {
+    @if not $is-tb-theme {
+      color: $colorLocalDark !important;
+    }
+  }
+  mat-icon:not(gridster-item *){
+    @if not $is-tb-theme {
+      color: $colorLocalLight2 !important;
+    }
+  }
+
+  .tooltipster-box{
+    @if not $is-tb-theme {
+    background: $colorLocalDark !important;
+    color: $colorLocalLight2 !important;
+    .tb-node-title{
+      @if not $is-tb-theme {
+        color: $colorLocalLight2 !important;
+      }
+    }
+  }
+  }
+
+  .mat-datetimepicker-calendar-content ,  .mat-datetimepicker-clock-hours + .active{
+    @if not $is-tb-theme {
+      background:  #01c0c8  !important;
+    }
+
+  }
+
+  .tb-image-container, .tb-image-select-container {
+    @if not $is-tb-theme {
+      background:  $colorLocalDark  !important;
+    }
+  }
+
+  .mat-mdc-mini-fab.mat-primary{
+    --mdc-fab-container-color: #fb9678 !important;
+  }
+
+  .mdc-text-field--outlined{
+    @if not $is-tb-theme {
+      border: 1px solid rgba(255, 255, 255, 0.349) !important;
+      border-radius: 5px;
+    }
+  }
+
+.mdc-text-field__input{
+      caret-color: if($is-tb-theme, black !important, rgba(241, 230, 230, 0.719) !important);
+  }
+
+  .mat-drawer-shown{
+    @if not $is-tb-theme {
+      background: transparent !important;
+     }
+  }
+
+
+}
+
+.tb-default {
+  @include mat.all-component-themes($tb-theme);
+  @include mat-datetimepicker-theme($tb-theme);
+  @include tb-components-theme($tb-theme);
+  @include overwrites.theme-overwrites($tb-primary, $tb-theme);
+  @include mat.typography-hierarchy($tb-theme);
+}
+
+.tb-dark {
+  @include mat.all-component-themes($tb-dark-theme);
+  @include mat-datetimepicker-theme($tb-dark-theme);
+  @include tb-components-theme($tb-dark-theme);
+  @include overwrites.theme-overwrites($tb-dark-primary, $tb-dark-theme);
+  @include mat.typography-hierarchy($tb-dark-theme);
+
+}

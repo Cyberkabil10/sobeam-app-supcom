@@ -1,0 +1,372 @@
+[
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "name": "findEnabledByDomainNameAndPlatformType",
+                                "type": "function",
+                                "static": false,
+                                "location": "dao/src/main/java/org/thingsboard/server/dao/sql/oauth2/OAuth2ClientRepository.java:-1"
+                              }
+                            ],
+                            "name": "OAuth2ClientRepository",
+                            "type": "class"
+                          },
+                          {
+                            "children": [
+                              {
+                                "name": "findEnabledByDomainName",
+                                "type": "function",
+                                "static": false,
+                                "location": "dao/src/main/java/org/thingsboard/server/dao/sql/oauth2/JpaOAuth2ClientDao.java:64"
+                              }
+                            ],
+                            "name": "JpaOAuth2ClientDao",
+                            "type": "class"
+                          }
+                        ],
+                        "name": "oauth2",
+                        "type": "package"
+                      }
+                    ],
+                    "name": "sql",
+                    "type": "package"
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "name": "getTenantId",
+                            "type": "function",
+                            "static": false,
+                            "location": "dao/src/main/java/org/thingsboard/server/dao/aspect/SqlDaoCallsAspect.java:214"
+                          },
+                          {
+                            "name": "handleSqlCall",
+                            "type": "function",
+                            "static": false,
+                            "location": "dao/src/main/java/org/thingsboard/server/dao/aspect/SqlDaoCallsAspect.java:149"
+                          }
+                        ],
+                        "name": "SqlDaoCallsAspect",
+                        "type": "class"
+                      }
+                    ],
+                    "name": "aspect",
+                    "type": "package"
+                  },
+                  {
+                    "children": [
+                      {
+                        "name": "convertDataList",
+                        "type": "function",
+                        "static": true,
+                        "location": "dao/src/main/java/org/thingsboard/server/dao/DaoUtil.java:102"
+                      }
+                    ],
+                    "name": "DaoUtil",
+                    "type": "class"
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "name": "findOAuth2ClientLoginInfosByDomainName",
+                            "type": "function",
+                            "static": false,
+                            "location": "dao/src/main/java/org/thingsboard/server/dao/oauth2/OAuth2ClientServiceImpl.java:58"
+                          }
+                        ],
+                        "name": "OAuth2ClientServiceImpl",
+                        "type": "class"
+                      }
+                    ],
+                    "name": "oauth2",
+                    "type": "package"
+                  }
+                ],
+                "name": "dao",
+                "type": "package"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "name": "getScheme",
+                        "type": "function",
+                        "static": true,
+                        "location": "application/src/main/java/org/thingsboard/server/utils/MiscUtils.java:59"
+                      },
+                      {
+                        "name": "getDomainNameAndPort",
+                        "type": "function",
+                        "static": true,
+                        "location": "application/src/main/java/org/thingsboard/server/utils/MiscUtils.java:72"
+                      },
+                      {
+                        "name": "getDomainName",
+                        "type": "function",
+                        "static": true,
+                        "location": "application/src/main/java/org/thingsboard/server/utils/MiscUtils.java:68"
+                      },
+                      {
+                        "name": "getPort",
+                        "type": "function",
+                        "static": true,
+                        "location": "application/src/main/java/org/thingsboard/server/utils/MiscUtils.java:88"
+                      }
+                    ],
+                    "name": "MiscUtils",
+                    "type": "class"
+                  }
+                ],
+                "name": "utils",
+                "type": "package"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "name": "matches",
+                                    "type": "function",
+                                    "static": false,
+                                    "location": "application/src/main/java/org/thingsboard/server/service/security/auth/jwt/SkipPathRequestMatcher.java:40"
+                                  }
+                                ],
+                                "name": "SkipPathRequestMatcher",
+                                "type": "class"
+                              }
+                            ],
+                            "name": "jwt",
+                            "type": "package"
+                          }
+                        ],
+                        "name": "auth",
+                        "type": "package"
+                      }
+                    ],
+                    "name": "security",
+                    "type": "package"
+                  }
+                ],
+                "name": "service",
+                "type": "package"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "name": "doFilterInternal",
+                                "type": "function",
+                                "static": false,
+                                "location": "common/transport/http/src/main/java/org/thingsboard/server/transport/http/config/PayloadSizeFilter.java:56"
+                              }
+                            ],
+                            "name": "PayloadSizeFilter",
+                            "type": "class"
+                          }
+                        ],
+                        "name": "config",
+                        "type": "package"
+                      }
+                    ],
+                    "name": "http",
+                    "type": "package"
+                  }
+                ],
+                "name": "transport",
+                "type": "package"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "name": "resolve",
+                        "type": "function",
+                        "static": false,
+                        "location": "application/src/main/java/org/thingsboard/server/config/CustomOAuth2AuthorizationRequestResolver.java:86"
+                      }
+                    ],
+                    "name": "CustomOAuth2AuthorizationRequestResolver",
+                    "type": "class"
+                  },
+                  {
+                    "children": [
+                      {
+                        "name": "doFilterInternal",
+                        "type": "function",
+                        "static": false,
+                        "location": "application/src/main/java/org/thingsboard/server/config/RateLimitProcessingFilter.java:49"
+                      }
+                    ],
+                    "name": "RateLimitProcessingFilter",
+                    "type": "class"
+                  }
+                ],
+                "name": "config",
+                "type": "package"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "name": "valueOf",
+                                "type": "function",
+                                "static": true,
+                                "location": "common/data/src/main/java/org/thingsboard/server/common/data/oauth2/PlatformType.java:18"
+                              }
+                            ],
+                            "name": "PlatformType",
+                            "type": "class"
+                          }
+                        ],
+                        "name": "oauth2",
+                        "type": "package"
+                      },
+                      {
+                        "children": [
+                          {
+                            "name": "isNotEmpty",
+                            "type": "function",
+                            "static": true,
+                            "location": "common/data/src/main/java/org/thingsboard/server/common/data/StringUtils.java:49"
+                          }
+                        ],
+                        "name": "StringUtils",
+                        "type": "class"
+                      }
+                    ],
+                    "name": "data",
+                    "type": "package"
+                  }
+                ],
+                "name": "common",
+                "type": "package"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "name": "getOAuth2Clients",
+                        "type": "function",
+                        "static": false,
+                        "location": "application/src/main/java/org/thingsboard/server/controller/OAuth2Controller.java:89"
+                      }
+                    ],
+                    "name": "OAuth2Controller",
+                    "type": "class"
+                  }
+                ],
+                "name": "controller",
+                "type": "package"
+              }
+            ],
+            "name": "server",
+            "type": "package"
+          }
+        ],
+        "name": "thingsboard",
+        "type": "package"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "name": "canWrite",
+                            "type": "function",
+                            "static": false,
+                            "location": "application/src/main/java/org/springframework/http/converter/xml/MappingJackson2XmlHttpMessageConverter.java:66"
+                          }
+                        ],
+                        "name": "MappingJackson2XmlHttpMessageConverter",
+                        "type": "class"
+                      }
+                    ],
+                    "name": "xml",
+                    "type": "package"
+                  }
+                ],
+                "name": "converter",
+                "type": "package"
+              }
+            ],
+            "name": "http",
+            "type": "package"
+          }
+        ],
+        "name": "springframework",
+        "type": "package"
+      }
+    ],
+    "name": "org",
+    "type": "package"
+  },
+  {
+    "type": "http",
+    "name": "HTTP server requests",
+    "children": [
+      {
+        "type": "route",
+        "name": "POST /api/noauth/oauth2Clients"
+      }
+    ]
+  },
+  {
+    "type": "class",
+    "children": [
+      {
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "type": "database",
+    "name": "Database",
+    "children": [
+      {
+        "type": "query",
+        "name": "select oce1_0.id,oce1_0.activate_user,oce1_0.additional_info,oce1_0.allow_user_creation,oce1_0.basic_always_full_screen,oce1_0.authorization_uri,oce1_0.client_authentication_method,oce1_0.client_id,oce1_0.client_secret,oce1_0.created_time,oce1_0.basic_customer_name_pattern,oce1_0.basic_default_dashboard_name,oce1_0.basic_email_attribute_key,oce1_0.basic_first_name_attribute_key,oce1_0.jwk_set_uri,oce1_0.basic_last_name_attribute_key,oce1_0.login_button_icon,oce1_0.login_button_label,oce1_0.custom_password,oce1_0.platforms,oce1_0.scope,oce1_0.custom_send_token,oce1_0.tenant_id,oce1_0.basic_tenant_name_pattern,oce1_0.basic_tenant_name_strategy,oce1_0.title,oce1_0.token_uri,oce1_0.type,oce1_0.custom_url,oce1_0.user_info_uri,oce1_0.user_name_attribute_name,oce1_0.custom_username from oauth2_client oce1_0 left join domain_oauth2_client doce1_0 on oce1_0.id=doce1_0.oauth2_client_id left join domain de1_0 on doce1_0.domain_id=de1_0.id where de1_0.name=? and de1_0.oauth2_enabled=true and (? is null or oce1_0.platforms is null or oce1_0.platforms='' or (oce1_0.platforms::text ILIKE ('%'||?||'%')::text)=true)"
+      }
+    ]
+  }
+]

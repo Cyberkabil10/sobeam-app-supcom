@@ -1,0 +1,125 @@
+<!--
+
+    Copyright © 2016-2025 The Thingsboard Authors
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<!-- tb-profil-declaraion.component.html -->
+<mat-tab-group [formGroup]="form"> 
+  <mat-tab label="Telemetry">
+    <div class="flex flex-col">
+      <div class="tb-tenant-profile-queues flex flex-row items-center"
+        *ngFor="let telemetryControl of telemetryFields.controls; let i = index; last as isLast;"
+        [class.pb-2]="!isLast">
+        <div class="flex-1" [formGroup]="telemetryControl">
+          <div class="flex flex-row gap-4">
+            <mat-form-field appearance="fill" class="flex-1">
+              <mat-label>Key</mat-label>
+              <input matInput formControlName="key" placeholder="Key">
+              <mat-error *ngIf="telemetryControl.get('key')?.invalid && telemetryControl.get('key')?.touched">
+                Key is required
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="mat-block max-w-40% flex-full">
+              <mat-label translate>filter.key-type.key-type</mat-label>
+              <mat-select required formControlName="dataType">
+                <mat-option *ngFor="let dataType of valueTypeKeys" [value]="dataType">
+                  {{dataType}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="telemetryControl.get('dataType')?.invalid && telemetryControl.get('dataType')?.touched">
+                Type is required
+              </mat-error>
+            </mat-form-field>
+
+            <div class="tb-units-field">
+              <tb-unit-input formControlName="units"></tb-unit-input>
+            </div>
+          </div>
+        </div>
+        <button mat-icon-button style="min-width: 40px;" type="button" (click)="removeTelemetryField(i)"
+          matTooltip="Remove" matTooltipPosition="above">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+
+      <div *ngIf="!telemetryFields.controls.length" class="no-fields-message">
+        <span class="tb-prompt flex items-center justify-center">No telemetry fields</span>
+      </div>
+
+      <div style="padding: 16px 0;">
+        <button mat-raised-button color="primary" type="button" (click)="addTelemetryField()"
+          [disabled]="telemetryFields.length > 0 && !areAllTelemetryFieldsValid()">
+          <span>Add Telemetry Field</span>
+        </button>
+      </div>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Action">
+    <div class="flex flex-col">
+      <div class="tb-tenant-profile-queues flex flex-row items-center"
+        *ngFor="let actionControl of actionFields.controls; let i = index; last as isLast;" [class.pb-2]="!isLast"
+        [formGroup]="actionControl">
+        <fieldset class="tb-form-panel stroked flex-1">
+          <legend>
+            <h6>{{'scheduler.settings' | translate}}</h6>
+          </legend>
+
+          <div class="tb-form-row">
+            <div class="fixed-title-width">{{ 'widgets.value-action.method' | translate }}*</div>
+            <mat-form-field class="flex tb-suffix-absolute" appearance="outline" subscriptSizing="dynamic">
+              <input matInput required placeholder="{{ 'widget-config.set' | translate }}" formControlName="method" />
+              <mat-icon matSuffix [matTooltip]="'widgets.value-action.method-name-required' | translate">
+                warning
+              </mat-icon>
+              <mat-error *ngIf="actionControl.get('method')?.invalid && actionControl.get('method')?.touched">
+                Method is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <tb-json-content label="{{ 'widgets.rpc.rpc-method-params' | translate }}" validateOnChange
+            [contentType]="contentTypes.JSON" formControlName="params">
+          </tb-json-content>
+
+          <mat-form-field fxFlex class="mat-block">
+            <mat-label>{{'widgets.rpc.request-timeout' | translate}}</mat-label>
+            <input matInput type="number" min="0" formControlName="timeout" />
+            <mat-error *ngIf="actionControl.get('timeout')?.invalid && actionControl.get('timeout')?.touched">
+              Timeout must be a positive number
+            </mat-error>
+          </mat-form-field>
+        </fieldset>
+
+        <button mat-icon-button style="min-width: 40px;" type="button" (click)="removeActionField(i)"
+          matTooltip="Remove" matTooltipPosition="above">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+
+      <div *ngIf="!actionFields.controls.length" class="no-fields-message">
+        <span class="tb-prompt flex items-center justify-center">No action fields</span>
+      </div>
+
+      <div style="padding: 16px 0;">
+        <button mat-raised-button color="primary" type="button" (click)="addActionField()"
+          [disabled]="actionFields.length > 0 && !areAllActionFieldsValid()">
+          <span>Add Action Field</span>
+        </button>
+      </div>
+    </div>
+  </mat-tab>
+</mat-tab-group>

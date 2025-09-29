@@ -1,0 +1,7 @@
+[
+  {
+    "route": "POST /api/noauth/oauth2Clients",
+    "parameters": "(platform)",
+    "status": 200
+  }
+]

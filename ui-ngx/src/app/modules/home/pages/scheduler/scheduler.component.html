@@ -1,0 +1,209 @@
+<!--
+
+    Copyright © 2016-2025 The Thingsboard Authors
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+
+
+<!-- Toolbar -->
+<mat-toolbar class="flex flex-row justify-between" color="primary">
+  <h2>{{ isAdd ? ('scheduler.add-scheduler' | translate) : ('scheduler.EditTitle' | translate) }}</h2>
+  <button mat-icon-button (click)="cancel()" type="button">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-toolbar>
+
+<!-- Loader -->
+<mat-progress-bar color="warn" mode="indeterminate" *ngIf="isLoading$ | async"></mat-progress-bar>
+
+<!-- Form -->
+<form [formGroup]="schedulerForm" class="tb-dialog-container">
+
+  <!-- General -->
+  <ng-template matStepLabel>{{'General' | translate}}</ng-template>
+  <mat-form-field>
+    <mat-label>{{'scheduler.name' | translate}}</mat-label>
+    <input matInput formControlName="name" placeholder="{{'scheduler.name' | translate}}" required />
+  </mat-form-field>
+
+  <!-- Tabs -->
+  <mat-tab-group>
+    <!-- Configuration Tab -->
+    <mat-tab label="{{'scheduler.configuration' | translate}}">
+      <mat-form-field style="display: inline">
+        <mat-label>{{'scheduler.type' | translate}}</mat-label>
+        <mat-select formControlName="type" disableRipple>
+          <mat-option value="sendRpcRequest">{{'scheduler.send-rpc' | translate}}</mat-option>
+          <mat-option value="updateAttribute">{{'scheduler.updateAttribut' | translate}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div formGroupName="configuration" *ngIf="schedulerForm.get('type')?.value">
+          <!-- Target -->
+        <fieldset class="tb-form-panel stroked">
+          <legend><h6>{{'scheduler.target' | translate}}</h6></legend>
+          <tb-scheduler-data [formControl]="schedulerForm.get('configuration.originatorId')" [filter]="schedulerForm.get('type')?.value"></tb-scheduler-data>
+        </fieldset>
+
+        <!-- Send RPC -->
+        <ng-container *ngIf="schedulerForm.get('type')?.value === 'sendRpcRequest'">
+          <fieldset class="tb-form-panel stroked">
+            <legend><h6>{{'scheduler.settings' | translate}}</h6></legend>
+
+            <div class="tb-form-row">
+              <div class="fixed-title-width">{{ 'scheduler.method' | translate }}*</div>
+              <mat-form-field class="flex tb-suffix-absolute" appearance="outline" subscriptSizing="dynamic">
+                <input matInput required placeholder="{{ 'widget-config.set' | translate }}" [formControl]="schedulerForm.get('configuration.msgBody.method')" />
+                <mat-icon matSuffix [matTooltip]="'widgets.value-action.method-name-required' | translate" *ngIf="schedulerForm.get('configuration.msgBody.method')?.invalid && schedulerForm.get('configuration.msgBody.method')?.touched">warning</mat-icon>
+              </mat-form-field>
+            </div>
+
+            <tb-json-content label="{{ 'widgets.rpc.rpc-method-params' | translate }}" [contentType]="contentTypes.JSON" validateOnChange [formControl]="schedulerForm.get('configuration.msgBody.params')"></tb-json-content>
+
+            <mat-form-field fxFlex class="mat-block">
+              <mat-label>{{'widgets.rpc.request-timeout' | translate}}</mat-label>
+              <input matInput type="number" min="0" [formControl]="schedulerForm.get('configuration.metadata.timeout')" />
+            </mat-form-field>
+          </fieldset>
+        </ng-container>
+
+        <!-- Update Attribute -->
+        <ng-container *ngIf="schedulerForm.get('type')?.value === 'updateAttribute' && schedulerForm.get('configuration.originatorId').value !== null">
+          <fieldset class="tb-form-panel stroked">
+            <legend><h6>{{'scheduler.attributes' | translate}}</h6></legend>
+
+            <mat-form-field>
+              <mat-label>{{'scheduler.entity-scope' | translate}}</mat-label>
+              <mat-select [formControl]="schedulerForm.get('configuration.metadata.scope')">
+                <mat-option value="SHARED_SCOPE" *ngIf="schedulerForm.get('configuration.originatorId').value.singleEntity.entityType === 'DEVICE'">{{'attribute.scope-shared' | translate}}</mat-option>
+                <mat-option value="SERVER_SCOPE">{{'attribute.scope-server' | translate}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <!-- Add Attribute -->
+            <div *ngIf="schedulerForm.get('configuration.metadata.scope').value">
+              <fieldset>
+                <mat-form-field class="mat-block">
+                    <mat-label>{{'attribute.key' | translate}}</mat-label>
+                    <input matInput [formControl]="attributeFormGroup.get('key')" required>
+                    <mat-error *ngIf="attributeFormGroup.get('key')?.hasError('required')">
+                        {{'attribute.telemetry-key-required' | translate}}
+                    </mat-error>
+                    <mat-error *ngIf="attributeFormGroup.get('key')?.hasError('maxlength')">
+                        {{'attribute.key-max-length' | translate}}
+                    </mat-error>
+                </mat-form-field>
+                <div style="display: flex;align-items: center;justify-content: space-between;">
+                    <tb-value-input [formControl]="attributeFormGroup.get('value')">
+                    </tb-value-input>
+                    <button mat-raised-button color="primary" [disabled]="attributeFormGroup.invalid"
+                        (click)="addAttribute()">
+                        {{'action.add' | translate}}
+                    </button>
+                </div>
+            </fieldset>
+            </div>
+
+            <!-- List Attributes -->
+            <div *ngIf="schedulerForm.get('configuration.metadata.scope').value">
+              <mat-expansion-panel [expanded]="true">
+                <mat-expansion-panel-header>
+                  <mat-panel-title><div>{{'filter.key' | translate}}</div></mat-panel-title>
+                </mat-expansion-panel-header>
+                <div fxLayout="row">
+                  <span fxFlex="8"></span>
+                  <div fxLayout="row" fxLayoutAlign="start center" fxFlex="92">
+                    <label fxFlex class="tb-title no-padding">{{'filter.key-name' | translate}}</label>
+                    <label fxFlex class="tb-title no-padding">{{'filter.key-value' | translate}}</label>
+                    <span style="min-width: 40px;">&nbsp;</span>
+                  </div>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="key-filter-list">
+                  <div fxLayout="row" fxLayoutAlign="start" style="max-height: 76px;" *ngFor="let attribute of attributes; let i = index">
+                    <div fxFlex="8" class="filters-operation"></div>
+                    <div fxLayout="column" fxFlex="92">
+                      <div fxLayout="row" fxLayoutAlign="start center">
+                        <div fxFlex>{{ attribute.key }}</div>
+                        <div fxFlex>{{ attribute.value }}</div>
+                        <button mat-icon-button color="primary" type="button" matTooltip="{{ 'filter.remove-key-filter' | translate }}" (click)="removeAttribute(i)">
+                          <mat-icon>close</mat-icon>
+                        </button>
+                      </div>
+                      <mat-divider></mat-divider>
+                    </div>
+                  </div>
+                  <span fxLayoutAlign="center center" class="no-data-found" *ngIf="attributes.length === 0">{{'scheduler.no-data' | translate}}</span>
+                </div>
+              </mat-expansion-panel>
+            </div>
+          </fieldset>
+        </ng-container>
+      </div>
+    </mat-tab>
+
+    <!-- Schedule Tab -->
+    <mat-tab label="{{'scheduler.schedule' | translate}}">
+      <div formGroupName="scheduler">
+        <tb-timezone-select formControlName="timezone" subscriptSizing="dynamic" appearance="outline" displayLabel="false" class="flex"></tb-timezone-select>
+
+        <mat-form-field class="mat-block" subscriptSizing="dynamic">
+          <mat-label>{{'scheduler.start-on' | translate}}</mat-label>
+          <mat-datetimepicker-toggle matPrefix [for]="startDatePicker"></mat-datetimepicker-toggle>
+          <mat-datetimepicker #startDatePicker type="datetime" openOnFocus="true"></mat-datetimepicker>
+          <input matInput [matDatetimepicker]="startDatePicker" formControlName="startTime" required />
+          <mat-error *ngIf="schedulerForm.get('scheduler.startTime')?.hasError('required')">
+            {{'scheduler.start-time-required' | translate}}
+          </mat-error>
+        </mat-form-field>
+        <fieldset class="tb-form-panel stroked">
+
+        <mat-slide-toggle [formControl]="schedulerForm.get('scheduler.repeatEnabled')" class="mat-block">
+          {{'scheduler.repeat-enabled' | translate}}
+        </mat-slide-toggle>
+
+        <div *ngIf="schedulerForm.get('scheduler.repeatEnabled')?.value">
+          <mat-form-field class="mat-block" subscriptSizing="dynamic">
+            <mat-label>{{'scheduler.repeat-interval' | translate}}</mat-label>
+            <input matInput type="number" min="1" [formControl]="schedulerForm.get('scheduler.repeat.repeatInterval')" required />
+          </mat-form-field>
+
+          <mat-form-field class="mat-block" subscriptSizing="dynamic">
+            <mat-label>{{'scheduler.repeat-unit' | translate}}</mat-label>
+            <mat-select [formControl]="schedulerForm.get('scheduler.repeat.timeUnit')" required>
+              <mat-option value="seconds">{{'scheduler.temp-seconds' | translate}}</mat-option>
+              <mat-option value="minutes">{{'scheduler.temp-minutes' | translate}}</mat-option>
+              <mat-option value="hours">{{'scheduler.temp-hours' | translate}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="mat-block" subscriptSizing="dynamic">
+            <mat-label>{{'scheduler.end-on' | translate}}</mat-label>
+            <mat-datetimepicker-toggle matPrefix [for]="endDatePicker"></mat-datetimepicker-toggle>
+            <mat-datetimepicker #endDatePicker type="datetime" openOnFocus="true"></mat-datetimepicker>
+            <input matInput [matDatetimepicker]="endDatePicker" [formControl]="schedulerForm.get('scheduler.repeat.endsOn')" />
+          </mat-form-field>
+        </div>
+        </fieldset>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</form>
+
+<!-- Actions -->
+<div mat-dialog-actions fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="end">
+  <button mat-button (click)="cancel()">{{'scheduler.cancel' | translate}}</button>
+  <button mat-raised-button color="primary" (click)="save()">{{  isAdd? ('scheduler.save'| translate) : ('scheduler.edit' | translate) }}</button>
+</div>

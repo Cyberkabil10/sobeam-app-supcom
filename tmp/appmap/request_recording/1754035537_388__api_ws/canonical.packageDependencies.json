@@ -1,0 +1,6 @@
+[
+  {
+    "caller": "org/thingsboard/server/transport/http/config",
+    "callee": "HTTP server requests"
+  }
+]

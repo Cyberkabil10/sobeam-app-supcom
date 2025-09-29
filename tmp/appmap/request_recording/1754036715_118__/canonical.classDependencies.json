@@ -1,0 +1,10 @@
+[
+  {
+    "caller": "GET /",
+    "callee": "org/thingsboard"
+  },
+  {
+    "caller": "org/thingsboard",
+    "callee": "GET /"
+  }
+]

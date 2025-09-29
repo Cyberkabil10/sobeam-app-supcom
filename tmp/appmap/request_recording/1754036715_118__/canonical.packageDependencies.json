@@ -1,0 +1,10 @@
+[
+  {
+    "caller": "HTTP server requests",
+    "callee": "org/thingsboard/server/service/security/auth/jwt"
+  },
+  {
+    "caller": "org/thingsboard/server/transport/http/config",
+    "callee": "HTTP server requests"
+  }
+]

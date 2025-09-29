@@ -1,0 +1,7 @@
+[
+  {
+    "route": "GET /api/ws",
+    "parameters": "()",
+    "status": 101
+  }
+]

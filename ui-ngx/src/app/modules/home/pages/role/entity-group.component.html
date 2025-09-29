@@ -1,0 +1,52 @@
+<!--
+
+    Copyright © 2016-2025 The Thingsboard Authors
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<div class="tb-details-buttons" fxLayout.xs="column"></div>
+
+<div class="mat-padding" fxLayout="column">
+  <form [formGroup]="entityForm">
+    <fieldset [disabled]="(isLoading$ | async) || !isEdit">
+      <!-- Name -->
+      <mat-form-field class="mat-block" appearance="fill">
+        <mat-label translate>role.name</mat-label>
+        <input matInput formControlName="name" required />
+        <mat-error *ngIf="entityForm.get('name')?.hasError('required')">
+          {{ 'role.name-required' | translate }}
+        </mat-error>
+        <mat-error *ngIf="entityForm.get('name')?.hasError('maxlength')">
+          {{ 'role.name-max-length' | translate }}
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Description -->
+      <mat-form-field class="mat-block">
+        <mat-label translate>role.description</mat-label>
+        <textarea matInput formControlName="description" rows="2"></textarea>
+      </mat-form-field>
+
+      <!-- Role Type -->
+      <mat-form-field class="mat-block" subscriptSizing="dynamic">
+        <mat-label translate>role.type</mat-label>
+        <mat-select formControlName="type" (selectionChange)="onRoleTypeChange($event)" required>
+          <mat-option *ngFor="let type of typeGroup" [value]="type.value">
+            {{ type.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </fieldset>
+  </form>
+</div>
