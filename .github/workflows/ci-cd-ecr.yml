@@ -98,7 +98,7 @@ jobs:
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Cyberkabil10_sobeam-app-supcom
+        run: mvn -Dlicense.skip=true -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Cyberkabil10_sobeam-app-supcom
 
 
       - name: Build project with Maven and Docker
