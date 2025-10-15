@@ -138,7 +138,7 @@ jobs:
           docker image ls --format "table {{.Repository}}\t{{.Tag}}\t{{.Size}}"
 
       - name: Scan Docker image with Trivy
-        uses: aquasecurity/trivy-action@v2
+        uses: aquasecurity/trivy-action@v0.33.0
         with:
           image-ref: $TB_IMAGE
           format: table
@@ -210,7 +210,7 @@ jobs:
           
       - name: OWASP ZAP scan
         if: steps.wait-for-url.outputs.reachable == 'true'
-        uses: zaproxy/action-full-scan@v1
+        uses: zaproxy/action-full-scan@v0.12.0
         with:
           target: https://kabil-aws-pfe.com/
           cmd_options: '-t 60 -r zap_report.html'
