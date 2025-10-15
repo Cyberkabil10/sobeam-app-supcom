@@ -1,4 +1,4 @@
-name: Build, Push and Deploy ThingsBoard Images
+name: Build, Push, & Scan Application
 
 on:
   push:
