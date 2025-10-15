@@ -137,6 +137,14 @@ jobs:
           echo "=== Remaining images ==="
           docker image ls --format "table {{.Repository}}\t{{.Tag}}\t{{.Size}}"
 
+      - name: Scan Docker image with Trivy
+        uses: aquasecurity/trivy-action@v2
+        with:
+          image-ref: $TB_IMAGE
+          format: table
+          exit-code: '1'        # Fail workflow if vulnerabilities found
+          ignore-unfixed: false
+
       - name: Push tb-postgres image to ECR
         run: |
           VERSION=${{ steps.versioning.outputs.version }}
@@ -177,3 +185,40 @@ jobs:
         run: |
           docker system prune -af
           df -h
+      - name: Wait for application to be up
+        id: wait-for-url
+        run: |
+          URL="https://kabil-aws-pfe.com/"
+          MAX_RETRIES=30
+          SLEEP=10
+          COUNTER=0
+
+          echo "Waiting for $URL to be reachable..."
+          until curl --silent --fail --show-error $URL > /dev/null; do
+            COUNTER=$((COUNTER+1))
+            if [ $COUNTER -ge $MAX_RETRIES ]; then
+              echo "ERROR: $URL is not reachable after $((MAX_RETRIES * SLEEP)) seconds."
+              echo "reachable=false" >> $GITHUB_OUTPUT
+              exit 1
+            fi
+            echo "Not up yet, retrying in $SLEEP seconds..."
+            sleep $SLEEP
+          done
+
+          echo "$URL is up!"
+          echo "reachable=true" >> $GITHUB_OUTPUT
+          
+      - name: OWASP ZAP scan
+        if: steps.wait-for-url.outputs.reachable == 'true'
+        uses: zaproxy/action-full-scan@v1
+        with:
+          target: https://kabil-aws-pfe.com/
+          cmd_options: '-t 60 -r zap_report.html'
+
+      - name: Upload ZAP report
+        if: steps.wait-for-url.outputs.reachable == 'true'
+        uses: actions/upload-artifact@v3
+        with:
+          name: zap-report
+          path: zap_report.html
+    
