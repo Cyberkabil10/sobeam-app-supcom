@@ -137,10 +137,22 @@ jobs:
           echo "=== Remaining images ==="
           docker image ls --format "table {{.Repository}}\t{{.Tag}}\t{{.Size}}"
 
+      - name: Set Docker image variable
+        id: set-image
+        run: |
+          TB_IMAGE=$(docker images --format "{{.Repository}}:{{.Tag}}" | grep "tb-postgres" | sort -r | head -1)
+          if [ -z "$TB_IMAGE" ]; then
+            echo "ERROR: tb-postgres image not found!"
+            exit 1
+          fi
+          echo "Found image: $TB_IMAGE"
+          echo "TB_IMAGE=$TB_IMAGE" >> $GITHUB_ENV
+    
+
       - name: Scan Docker image with Trivy
         uses: aquasecurity/trivy-action@0.28.0
         with:
-          image-ref: $TB_IMAGE
+          image-ref: ${{ env.TB_IMAGE }}
           format: table
           exit-code: '1'        # Fail workflow if vulnerabilities found
           ignore-unfixed: false
