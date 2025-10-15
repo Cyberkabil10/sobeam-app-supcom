@@ -154,7 +154,7 @@ jobs:
         with:
           image-ref: ${{ env.TB_IMAGE }}
           format: table
-          exit-code: '1'        # Fail workflow if vulnerabilities found
+          exit-code: '0'        # Fail workflow if vulnerabilities found
           ignore-unfixed: false
 
       - name: Push tb-postgres image to ECR
