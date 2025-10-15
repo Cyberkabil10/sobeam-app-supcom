@@ -217,7 +217,7 @@ jobs:
 
       - name: Upload ZAP report
         if: steps.wait-for-url.outputs.reachable == 'true'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: zap-report
           path: zap_report.html
