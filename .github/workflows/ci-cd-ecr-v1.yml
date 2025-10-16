@@ -1,9 +1,10 @@
-name: Build, Push and Deploy ThingsBoard Images
+name: Build, Push, & Scan Application
 
 on:
   push:
     branches:
       - develop
+      #- main
   workflow_dispatch:
 
 jobs:
@@ -137,6 +138,26 @@ jobs:
           echo "=== Remaining images ==="
           docker image ls --format "table {{.Repository}}\t{{.Tag}}\t{{.Size}}"
 
+      - name: Set Docker image variable
+        id: set-image
+        run: |
+          TB_IMAGE=$(docker images --format "{{.Repository}}:{{.Tag}}" | grep "tb-postgres" | sort -r | head -1)
+          if [ -z "$TB_IMAGE" ]; then
+            echo "ERROR: tb-postgres image not found!"
+            exit 1
+          fi
+          echo "Found image: $TB_IMAGE"
+          echo "TB_IMAGE=$TB_IMAGE" >> $GITHUB_ENV
+    
+
+      - name: Scan Docker image with Trivy
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: ${{ env.TB_IMAGE }}
+          format: table
+          exit-code: '0'        # Fail workflow if vulnerabilities found
+          ignore-unfixed: false
+
       - name: Push tb-postgres image to ECR
         run: |
           VERSION=${{ steps.versioning.outputs.version }}
@@ -177,3 +198,55 @@ jobs:
         run: |
           docker system prune -af
           df -h
+
+  DAST_SCAN_OWASP_ZAP:
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    if: needs.build-and-push.outputs.image_identified == 'true'
+    permissions:
+      # Grant write permission for issues
+      issues: write 
+      # You can specify other permissions as needed (e.g., contents: read)
+      # contents: read 
+    steps:          
+      - name: Wait for application to be up
+        id: wait-for-url
+        run: |
+          URL="https://kabil-aws-pfe.com/"
+          MAX_RETRIES=30
+          SLEEP=10
+          COUNTER=0
+
+          echo "Waiting for $URL to be reachable..."
+          until curl --silent --fail --show-error $URL > /dev/null; do
+            COUNTER=$((COUNTER+1))
+            if [ $COUNTER -ge $MAX_RETRIES ]; then
+              echo "ERROR: $URL is not reachable after $((MAX_RETRIES * SLEEP)) seconds."
+              echo "reachable=false" >> $GITHUB_OUTPUT
+              exit 1
+            fi
+            echo "Not up yet, retrying in $SLEEP seconds..."
+            sleep $SLEEP
+          done
+
+          echo "$URL is up!"
+          echo "reachable=true" >> $GITHUB_OUTPUT
+          
+      - name: OWASP ZAP scan
+        if: steps.wait-for-url.outputs.reachable == 'true'
+        uses: zaproxy/action-full-scan@v0.12.0
+        with:
+          target: https://kabil-aws-pfe.com/
+          # Use 'cmd_options' for time and other flags
+          # -m 60 means spider for a max of 60 minutes
+          cmd_options: '-m 60' 
+# NEW DEBUG STEP: Check for the file
+      - name: Debug_List_Files
+        run: ls -al        
+      - name: Upload ZAP report
+        if: steps.wait-for-url.outputs.reachable == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: zap-report
+          path: report_html.html
+    
