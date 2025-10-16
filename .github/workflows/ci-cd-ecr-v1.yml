@@ -240,6 +240,7 @@ jobs:
           cmd_options: '-m 60' 
           # Use the dedicated report outputs for the reports
           html_report: zap_report.html
+          upload_artifact: false
 
       - name: Upload ZAP report
         if: steps.wait-for-url.outputs.reachable == 'true'
