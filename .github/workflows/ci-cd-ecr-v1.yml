@@ -198,6 +198,15 @@ jobs:
         run: |
           docker system prune -af
           df -h
+
+  DAST_SCAN_OWASP_ZAP:
+    runs-on: ubuntu-latest
+    permissions:
+      # Grant write permission for issues
+      issues: write 
+      # You can specify other permissions as needed (e.g., contents: read)
+      # contents: read 
+    steps:          
       - name: Wait for application to be up
         id: wait-for-url
         run: |
