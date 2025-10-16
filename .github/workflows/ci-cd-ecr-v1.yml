@@ -242,6 +242,10 @@ jobs:
           html_report: zap_report.html
           upload_artifact: false
 
+# NEW DEBUG STEP: Check for the file
+      - name: Debug_List_Files
+        run: ls -al
+        
       - name: Upload ZAP report
         if: steps.wait-for-url.outputs.reachable == 'true'
         uses: actions/upload-artifact@v4
