@@ -226,7 +226,11 @@ jobs:
         uses: zaproxy/action-full-scan@v0.12.0
         with:
           target: https://kabil-aws-pfe.com/
-          cmd_options: '-t 60 -r zap_report.html'
+          # Use 'cmd_options' for time and other flags
+          # -m 60 means spider for a max of 60 minutes
+          cmd_options: '-m 60' 
+          # Use the dedicated report outputs for the reports
+          html_report: zap_report.html
 
       - name: Upload ZAP report
         if: steps.wait-for-url.outputs.reachable == 'true'
