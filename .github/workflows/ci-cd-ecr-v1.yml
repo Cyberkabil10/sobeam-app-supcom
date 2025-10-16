@@ -238,10 +238,6 @@ jobs:
           # Use 'cmd_options' for time and other flags
           # -m 60 means spider for a max of 60 minutes
           cmd_options: '-m 60' 
-          # Use the dedicated report outputs for the reports
-          html_report: report_html.html
-          #upload_artifact: false
-
 # NEW DEBUG STEP: Check for the file
       - name: Debug_List_Files
         run: ls -al
