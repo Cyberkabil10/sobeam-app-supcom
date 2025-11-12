@@ -3,8 +3,8 @@ name: Build, Push, & Scan Application
 on:
   push:
     branches:
-      - develop
-      #- main
+      #- develop
+      - main
   workflow_dispatch:
 
 jobs:
