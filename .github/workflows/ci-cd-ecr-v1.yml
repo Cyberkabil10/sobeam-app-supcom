@@ -139,7 +139,7 @@ jobs:
           docker image ls --format "table {{.Repository}}\t{{.Tag}}\t{{.Size}}"
 
       - name: Set Docker image variable
-        id: set-image
+        id: identify-image
         run: |
           TB_IMAGE=$(docker images --format "{{.Repository}}:{{.Tag}}" | grep "tb-postgres" | sort -r | head -1)
           if [ -z "$TB_IMAGE" ]; then
