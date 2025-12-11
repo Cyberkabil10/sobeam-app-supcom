@@ -204,7 +204,7 @@ jobs:
     needs: build-and-push
     if: needs.build-and-push.outputs.image_identified == 'true'
     permissions:
-      # Grant write permission for issues
+      # Grant write permission for issues #for test 
       issues: write 
       # You can specify other permissions as needed (e.g., contents: read)
       # contents: read 
